@@ -13,21 +13,8 @@ export default function MyData() {
     } | null;
   };
 
-  /*
-  const fetchData = async () => {
-    if (session && session.user) {
-      // サーバー側のエンドポイント経由でデータを取得
-      const res = await fetch(`/api/orcid/${session.user.id}`);
-      const data = await res.json();
-      console.log(data); // ユーザーデータを確認
-    }
-  };
-  */
-
   return (
     <div>
-      {/* <button onClick={fetchData}>Get My ORCID Data</button> */}
-
       {!session ? (
         <button onClick={() => signIn("gakunin")}>Sign in</button>
       ) : (

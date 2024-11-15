@@ -53,14 +53,5 @@ export const authOptions = {
       }
       return token;
     },
-  },
-  events: {
-    async signIn({ user, account }) {
-      console.log("User signed in:", user);
-      console.log("Account details:", account);
-    },
-    async error({ error }) {
-      console.error("An error occurred during the authentication process:", error);
-    },
-  },
+  }
 };
