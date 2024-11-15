@@ -14,63 +14,26 @@ export const authOptions = {
           redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/osf`, // 環境変数からリダイレクトURIを構築
         },
       },
-      token: {
-        url: "https://accounts.osf.io/oauth2/token",
-        async request({ clientId, clientSecret, params }) {
-          try {
-            const res = await fetch("https://accounts.osf.io/oauth2/token", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: new URLSearchParams({
-                ...params,
-                client_id: clientId,
-                client_secret: clientSecret,
-              }),
-            });
-            const tokens = await res.json();
-
-            if (!res.ok) {
-              throw new Error(tokens.error || "Failed to fetch token");
-            }
-
-            return { tokens };
-          } catch (error) {
-            console.error("Token request failed:", error);
-            throw error;
-          }
-        },
-      },
+      token: "https://accounts.osf.io/oauth2/token",
       userinfo: {
         url: "https://api.osf.io/v2/users/me/",
         async request({ tokens }) {
-          try {
-            const res = await fetch("https://api.osf.io/v2/users/me/", {
-              headers: {
-                Authorization: `Bearer ${tokens.access_token}`,
-                Accept: "application/json",
-              },
-            });
-
-            if (!res.ok) {
-              throw new Error(`Failed to fetch user info: ${res.status}`);
-            }
-
-            return await res.json();
-          } catch (error) {
-            console.error("User info request failed:", error);
-            throw error;
-          }
+          const res = await fetch("https://api.osf.io/v2/users/me/", {
+            headers: {
+              Authorization: `Bearer ${tokens.access_token}`,
+              Accept: "application/json",
+            },
+          });
+          return await res.json();
         },
       },
       profile(profile) {
         return {
-          id: profile.id, // osf RDM のユーザー ID
-          name: profile.full_name,
-          email: profile.email,
+          id: profile.id,
+          name: profile.attributes.full_name,
+          email: profile.attributes.email,
         };
-      },
+      }
     },
   ],
   callbacks: {
