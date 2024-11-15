@@ -16,7 +16,7 @@ export default function MyData() {
   return (
     <div>
       {!session ? (
-        <button onClick={() => signIn("gakunin")}>Sign in</button>
+        <button onClick={() => signIn("osf")}>Sign in</button>
       ) : (
         <>
           <p>Welcome, {session?.user?.name}</p>
