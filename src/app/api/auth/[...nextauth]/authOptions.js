@@ -29,9 +29,9 @@ export const authOptions = {
       },
       profile(profile) {
         return {
-          id: profile.id,
-          name: profile.attributes.full_name,
-          email: profile.attributes.email,
+          id: profile.data.id, // GakuNin RDM のユーザー ID
+          name: profile.data.attributes.full_name, // attributesの中からfull_nameを取得
+          email: profile.data.attributes.email,    // attributesの中からemailを取得
         };
       }
     },
