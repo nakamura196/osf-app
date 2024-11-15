@@ -33,7 +33,7 @@ export default function MyData() {
       ) : (
         <>
           <p>Welcome, {session?.user?.name}</p>
-          <p>ORCID: {session?.user?.id}</p>
+          <p>ID: {session?.user?.id}</p>
           <p>Access Token: {session?.accessToken}</p>
           <button onClick={() => signOut()}>Sign out</button>
         </>
